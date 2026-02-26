@@ -44,7 +44,6 @@ func main() {
 		AddItem("Выход", "Закрыть программу", 'q', func() {
 			app.Stop()
 		})
-
 	menu.SetBorder(true).SetTitle(" Главное меню ")
 
 	// ===== Форма =====
@@ -108,7 +107,6 @@ func main() {
 			table.SetCell(r+1, c, tview.NewTableCell(col))
 		}
 	}
-	// Esc возвращает в меню
 	table.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		if event.Key() == tcell.KeyEsc {
 			pages.SwitchToPage("menu")
@@ -140,6 +138,15 @@ func main() {
 	pages.AddPage("inputbox", inputForm, true, false)
 	pages.AddPage("table", table, true, false)
 	pages.AddPage("logs", logLayout, true, false)
+
+	// ===== Глобальный обработчик Esc =====
+	app.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		if event.Key() == tcell.KeyEsc {
+			pages.SwitchToPage("menu")
+			return nil
+		}
+		return event
+	})
 
 	// ===== Запуск =====
 	if err := app.SetRoot(pages, true).Run(); err != nil {
