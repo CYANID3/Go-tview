@@ -1,0 +1,2 @@
+.SetFieldTextColor(tcell.ColorRed) - цвет текста в input
+.SetFieldBackgroundColor(tcell.ColorWhite) - цвет фона в input
