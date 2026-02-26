@@ -48,8 +48,10 @@ func main() {
 
 	// ===== Форма =====
 	form := tview.NewForm().
-		AddInputField("Имя", "", 20, nil, nil).
-		AddPasswordField("Пароль", "", 20, '*', nil)
+		AddDropDown("Пол", []string{"Мужской", "Женский"}, 0, nil).
+		AddInputField("Имя", "", 10, nil, nil).
+		AddPasswordField("Пароль", "", 10, '*', nil)
+
 	form.AddButton("OK", func() {
 		name := form.GetFormItemByLabel("Имя").(*tview.InputField).GetText()
 		addLog("Форма отправлена, имя: " + name)
@@ -58,7 +60,7 @@ func main() {
 	form.AddButton("Назад", func() {
 		pages.SwitchToPage("menu")
 	})
-	form.SetBorder(true).SetTitle(" Форма ")
+	form.SetBorder(true).SetTitle(" Форма ").SetTitleAlign(tview.AlignLeft)
 
 	// ===== Подтверждение =====
 	confirm := tview.NewModal().
@@ -134,6 +136,17 @@ func main() {
 		return event
 	})
 
+	// Подсказка для формы
+	hint := tview.NewTextView().
+		SetText("Shift - Следующий | Shift + Tab - Предыдущий | Esc - меню").
+		SetTextColor(tcell.ColorYellow).
+		SetTextAlign(tview.AlignCenter)
+
+	// Flex для формы
+	formFlex := tview.NewFlex().SetDirection(tview.FlexRow).
+		AddItem(form, 0, 1, true). // Форма занимает всё пространство
+		AddItem(hint, 1, 1, false) // Подсказка снизу
+
 	// ===== Pages =====
 	pages.AddPage("menu", menu, true, true)
 	pages.AddPage("form", form, true, false)
@@ -142,6 +155,7 @@ func main() {
 	pages.AddPage("inputbox", inputForm, true, false)
 	pages.AddPage("table", table, true, false)
 	pages.AddPage("logs", logLayout, true, false)
+	pages.AddPage("form", formFlex, true, false)
 
 	// ===== Глобальный обработчик Esc =====
 	app.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
