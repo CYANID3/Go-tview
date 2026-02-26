@@ -66,7 +66,11 @@ func main() {
 		AddButtons([]string{"Да", "Нет"}).
 		SetDoneFunc(func(i int, label string) {
 			addLog("Нажата кнопка: " + label)
-			pages.SwitchToPage("menu")
+			if label == "Да" {
+				app.Stop()
+			} else {
+				pages.SwitchToPage("menu")
+			}
 		})
 
 	// ===== MsgBox =====
