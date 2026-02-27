@@ -40,8 +40,8 @@ func main() {
 	table := cmp.MyTable(cfg.Pages)
 	form := cmp.MainForm(cfg.Pages)
 	hint := cmp.MyHint(cfg.Pages)
-	exitmodal := cmp.YesNoModal(cfg.Pages, "Точно выйти?", "ДА", "НЕТ", cfg.App.Stop)
-	msg := cmp.CustomMessage(cfg.Pages, "Успех", "Ок", "Warning", func() { cfg.Pages.SwitchToPage("menu") })
+	yesnomodal := cmp.YesNoModal(cfg.Pages, "Точно выйти?", "ДА", "НЕТ", "Success", cfg.App.Stop)
+	msg := cmp.CustomMessage(cfg.Pages, "Успех", "ОК", "Warning", func() { cfg.Pages.SwitchToPage("menu") })
 
 	// Flex для формы
 	formFlex := tview.NewFlex().SetDirection(tview.FlexRow).
@@ -50,7 +50,7 @@ func main() {
 
 	cfg.Pages.AddPage("menu", menu, true, true)
 	cfg.Pages.AddPage("form", formFlex, true, false)
-	cfg.Pages.AddPage("exitmodal", exitmodal, true, false)
+	cfg.Pages.AddPage("yesnomodal", yesnomodal, true, false)
 	cfg.Pages.AddPage("msg", msg, true, false)
 	cfg.Pages.AddPage("table", table, true, false)
 

@@ -14,7 +14,7 @@ func MainMenu(app *tview.Application, pages *tview.Pages, title string) tview.Pr
 			pages.SwitchToPage("msg")
 		}).
 		AddItem("Выход", "Закрыть программу", '0', func() {
-			pages.SwitchToPage("exitmodal")
+			pages.SwitchToPage("yesnomodal")
 		})
 
 	menu.SetBorder(true).SetTitle(" " + title + " ").SetTitleAlign(tview.AlignLeft)

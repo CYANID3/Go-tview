@@ -11,7 +11,7 @@ var (
 	bgColor     = tcell.ColorBlue
 )
 
-func bgTyper(t string) {
+func messageModalTyper(t string) {
 	switch t {
 	case "Danger":
 		textColor = "white"
@@ -33,10 +33,10 @@ func bgTyper(t string) {
 }
 
 func CustomMessage(pages *tview.Pages, message string, btntext string, msgtype string, myFunc func()) *tview.Modal {
-	bgTyper(msgtype)
+	messageModalTyper(msgtype)
 	msgbox := tview.NewModal().
 		SetText("[" + textColor + "]" + message + "[-]").SetBackgroundColor(bgColor).
-		AddButtons([]string{"[black]" + btntext + "[-]"}).
+		AddButtons([]string{"[grey]" + btntext + "[-]"}).
 		SetDoneFunc(func(i int, label string) {
 			myFunc()
 		})
